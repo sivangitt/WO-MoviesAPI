@@ -1,0 +1,26 @@
+﻿
+
+@model  WOOMDBApi.Models.MovieSearchResult
+
+@using (Html.BeginForm("SearchResults", "Home", FormMethod.Post))
+{
+    <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div>
+               <article class="card">
+                   <header class="title-header">
+                       <h3>@Model.Title</h3>
+                   </header>
+                <div class="card-block">
+                    <div class="img-card">
+                        <img src="@Model.ImageUrl" alt="Movie" class="w-100" onerror="this.src='/images/no-image.png'">
+                    </div>
+                    <p class="tagline card-text text-xs-center"></p>
+                   
+                    <a href="@Url.Action("MovieDetails", "Home",new { id = Model.imdbID })" class="btn btn-primary btn-block"><i class="fa fa-eye"></i> View Details</a>
+                </div>
+            </article>
+
+        </div>
+    </li>
+
+}

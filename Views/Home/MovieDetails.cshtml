@@ -1,0 +1,137 @@
+﻿@model WOOMDBApi.Models.MovieDetail
+
+@{
+    ViewBag.Title = "MovieDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movie Details</h2>
+
+<div>
+
+    <article class="card">
+        <header class="title-header">
+            <h3>@Model.Title</h3>
+        </header>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <div class="form-group">
+
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Year :</strong> @Model.Year</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Actors :</strong> @Model.Actors</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Director :</strong> @Model.Director</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Writers :</strong> @Model.Writer</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Production :</strong> @Model.Production</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Country :</strong> @Model.Country</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Plot :</strong> @Model.Plot</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Awards :</strong> @Model.Awards</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>IMDB Rating :</strong> @Model.imdbRating</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>IMDB Votes :</strong> @Model.imdbVotes</p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="tagline card-text text-xs-center"><strong>Ratings :</strong></p>
+                        @foreach (var item in Model.Ratings)
+                        {
+                            <p class="tagline card-text text-xs-center"><strong>Source :</strong> @item.Source</p>
+                            <p class="tagline card-text text-xs-center"><strong>Value :</strong> @item.Value</p>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="card-block">
+                    <div class="img-card">
+                        <img src="@Model.Poster" alt="Movie" class="w-100">
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </article>
+
+</div>
+@section Scripts{
+    {
+    "@@context": "http://schema.org",
+    "@@type": "Movie,
+    "itemListElement": [
+    {
+    "@@type": "ListItem",
+    "position": "1",
+    "item": {
+    "@@type": "Movie",
+    "url": @Request.Url.AbsoluteUri,
+    "name": @Model.Title,
+    "image": @Model.Poster,
+    "dateCreated": "2018-10-05",
+    "director": {
+    "@@type": "Person",
+    "name": @Model.Director
+    },
+    "author": {
+    "@@type": "Person",
+    "name": @Model.Writer
+    },
+    "reviewBody": @Model.Plot
+    }
+    }
+    }
+}
+    

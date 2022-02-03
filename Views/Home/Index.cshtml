@@ -1,0 +1,85 @@
+﻿@model WOOMDBApi.Models.MovieSearchResults
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+@using (Html.BeginForm("SearchResults", "Home", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+
+    <div class=" row">
+        <h3>Search Your Favourite Movies</h3>
+
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.searchMovieTitle, new { placeholder = "* Movie Title", @class = "form-control", @name = "searchMovieTitle" })
+            @Html.ValidationMessageFor(model => model.searchMovieTitle)
+        </div>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.searchMovieYear, new { placeholder = "* Movies Year", @class = "form-control", @name = "searchMovieYear" })
+        </div>
+
+        <div class="col-md-4">
+
+
+            <button type="submit" class="btn btn-primary btn-block">Search Movie</button>
+        </div>
+
+    </div>
+}
+<section class="movies" id="movies">
+  
+    <div class="float-left">
+
+        @{
+            if (Model.Results != null && Model.Results.Count > 0)
+            {
+                <ul class="list-group row">
+                    @foreach (var movie in Model.Results)
+                    {
+                        @Html.Partial("_MovieResult", movie)
+
+                    }
+                </ul>
+                <nav class="text-center" aria-label="Page navigation">
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.totalPageCount; i++)
+                        {
+                            <li>
+                                @if (i != Model.CurrentPageIndex)
+                                {
+                                    <a href="javascript:PagerClick(@i);">@i</a>
+                                }
+                                else
+                                {
+                                    <span>@i</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+            else
+            {
+                <div class="row mt-30">
+                    <div class="col-md-12">
+                        <p class="tagline card-text text-xs-center"><strong>Try Searching for a Movie!!</strong></p>
+                    </div>
+                </div>
+            }
+        }
+        @Html.HiddenFor(model => model.CurrentPageIndex, new { @name = "CurrentPageIndex", id = "CurrentPageIndex" })
+        <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
+    </div>
+    
+</section>
+<script type="text/javascript">
+    function PagerClick(index) {
+       
+        document.getElementById("hfCurrentPageIndex").value = index;
+                document.forms[0].submit();
+            }
+</script>
